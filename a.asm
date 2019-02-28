@@ -2,28 +2,10 @@
 	extern _printf
 	section .text
 _main:
-	mov    ecx, 1
-	mov    edx, 2
-	mov    ebx, 1
-	sub    edx, ebx
-	add    ecx, edx
-	push    ecx
-	push    out
-	call    _printf
-	add    esp, 4
-	mov    ecx, 1
-	mov    edx, 9
-	mov    ebx, 7
-	imul    edx, ebx
-	add    ecx, edx
-	push    ecx
-	push    out
-	call    _printf
-	add    esp, 4
-	mov    ecx, 2
-	mov    edx, 3
-	mov    ebx, 4
-	imul    edx, ebx
+	mov    ecx, 4
+	mov    edx, 1
+	mov    ebx, 2
+	add    edx, ebx
 	imul    ecx, edx
 	push    ecx
 	push    out

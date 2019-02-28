@@ -13,7 +13,7 @@ class Parser:
     def parse(self):
         self.lines = self.make_lines()
         for line in self.lines:
-            expression = line.to_expressions()
+            expression = line.to_exp()
             # print(expression.contents)
             self.nodes.append(expression.to_nodes())
         self.merge_nodes()
@@ -158,27 +158,34 @@ class Line:
     def __repr__(self):
         return self.line.__repr__()
 
-    def to_expressions(self):
-        expression = Expression()
+    def to_exp(self):
+        exp = Expression()
         while self.has_next():
             element = self.next()
             if element.token_type == TokenType.TAB:
-                expression.tabs += 1
+                exp.tabs += 1
             elif element.token_type == TokenType.RIGHTPAREN:
-                return expression
+                print(exp)
+                return exp
             elif element.token_type == TokenType.KEYWORD:
-                expression.append(element)
+                exp.append(element)
             elif element.token_type == TokenType.IDENTIFIER:
-                expression.append(element)
+                exp.append(element)
             elif element.token_type == TokenType.NUMBER:
-                expression.append(element)
-            elif element.token_type == TokenType.BINARYOP or element.token_type == TokenType.EQUAL or element.token_type == TokenType.LEFTPAREN:
-                if element.token_type != TokenType.LEFTPAREN:
-                    expression.append(element)
-                next_expression = self.to_expressions()
-                if len(next_expression) == 1 and element.token_type != TokenType.LEFTPAREN:
-                    expression.append(next_expression.get_contents()[0])
-                elif len(next_expression) != 0:
-                    expression.append(next_expression)
+                exp.append(element)
+            elif element.token_type == TokenType.LEFTPAREN:
+                next_exp = self.to_exp()
+                if len(next_exp) != 0:
+                    exp.append(next_exp)
+            elif element.token_type == TokenType.BINARYOP or element.token_type == TokenType.EQUAL:
+                next_exp = self.to_exp()
+                exp.append(element)
+                if len(next_exp) == 1:
+                    exp.append(next_exp.get_contents()[0])
+                    return exp
+                elif len(next_exp) > 0:
+                    exp.append(next_exp)
+        print(exp)
+        return exp
 
-        return expression
+
