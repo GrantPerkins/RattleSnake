@@ -165,7 +165,7 @@ class Line:
             if element.token_type == TokenType.TAB:
                 exp.tabs += 1
             elif element.token_type == TokenType.RIGHTPAREN:
-                print(exp)
+                # print(exp)
                 return exp
             elif element.token_type == TokenType.KEYWORD:
                 exp.append(element)
@@ -185,7 +185,7 @@ class Line:
                     return exp
                 elif len(next_exp) > 0:
                     exp.append(next_exp)
-        print(exp)
+        # print(exp)
         return exp
 
 

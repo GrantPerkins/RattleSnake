@@ -1,4 +1,4 @@
 public main():
-	print((1 + 2) * 4)
+	print(180 + 7)
 	print(9 - 7)
 	print(4 * 5)
